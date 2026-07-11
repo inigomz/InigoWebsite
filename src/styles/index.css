@@ -1,0 +1,482 @@
+/* ─── Reset ─────────────────────────────────────────────────────────────── */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ─── Tokens — dark (default) ────────────────────────────────────────────── */
+
+:root {
+  --bg:          #0f1117;
+  --surface:     #1a1d27;
+  --border:      #2a2d3a;
+  --text:        #e2e4ed;
+  --text-muted:  #7c8099;
+  --accent:      #f97316;   /* orange */
+  --accent-dim:  #c2530a;
+  --accent-glow: #f9731622;
+  --radius:      8px;
+  --max-w:       800px;
+  --nav-h:       56px;
+
+  color-scheme: dark;
+}
+
+/* ─── Tokens — light ─────────────────────────────────────────────────────── */
+
+[data-theme="light"] {
+  --bg:          #faf9f7;
+  --surface:     #ffffff;
+  --border:      #e5e2dc;
+  --text:        #1a1710;
+  --text-muted:  #6b6760;
+  --accent:      #c2530a;   /* deeper orange for legibility on white */
+  --accent-dim:  #9a3f06;
+  --accent-glow: #f9731618;
+
+  color-scheme: light;
+}
+
+/* ─── Base ───────────────────────────────────────────────────────────────── */
+
+html, body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  transition: background 0.3s, color 0.3s;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+a:hover { text-decoration: underline; }
+
+h1, h2, h3 {
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+/* ─── Nav ────────────────────────────────────────────────────────────────── */
+
+nav[aria-label="Main navigation"] {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: var(--nav-h);
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 0 2rem;
+  background: color-mix(in srgb, var(--bg) 80%, transparent);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  transition: background 0.3s, border-color 0.3s;
+}
+
+nav[aria-label="Main navigation"] a {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  transition: color 0.15s;
+}
+
+nav[aria-label="Main navigation"] a:hover,
+nav[aria-label="Main navigation"] a[aria-current="page"] {
+  color: var(--text);
+  text-decoration: none;
+}
+
+/* Push the toggle to the far right */
+nav[aria-label="Main navigation"] .theme-toggle {
+  margin-left: auto;
+}
+
+/* ─── Theme toggle button ────────────────────────────────────────────────── */
+
+.theme-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: var(--radius);
+}
+
+.theme-toggle__track {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 52px;
+  height: 28px;
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: 999px;
+  transition: background 0.3s, border-color 0.3s;
+  overflow: hidden;
+}
+
+/* Sliding thumb */
+.theme-toggle__thumb {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--accent);
+  left: 4px;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.3s;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+}
+
+/* In light mode the thumb slides to the right */
+[data-theme="light"] .theme-toggle__thumb {
+  transform: translateX(24px);
+}
+
+/* Sun icon — visible in dark mode */
+.theme-toggle__icon {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  transition: opacity 0.25s, transform 0.35s;
+}
+
+.theme-toggle__icon--sun {
+  left: 5px;
+  color: var(--text-muted);
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}
+
+.theme-toggle__icon--moon {
+  right: 5px;
+  color: var(--text-muted);
+  opacity: 0.4;
+  transform: rotate(-20deg) scale(0.85);
+}
+
+/* Swap icon visibility in light mode */
+[data-theme="light"] .theme-toggle__icon--sun {
+  opacity: 0.4;
+  transform: rotate(20deg) scale(0.85);
+}
+
+[data-theme="light"] .theme-toggle__icon--moon {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}
+
+/* ─── Orange mist overlay ────────────────────────────────────────────────── */
+
+.theme-mist {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+
+  /* Radial mist centred on the button — JS writes --mist-x / --mist-y */
+  --mist-x: 50vw;
+  --mist-y: 50vh;
+
+  background: radial-gradient(
+    circle at var(--mist-x) var(--mist-y),
+    #f97316cc 0%,
+    #f9731644 35%,
+    transparent 70%
+  );
+
+  opacity: 0;
+  transform: scale(0.05);
+  transform-origin: var(--mist-x) var(--mist-y);
+  transition: none;
+}
+
+.theme-mist--active {
+  animation: mist-expand 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes mist-expand {
+  0%   { opacity: 0;   transform: scale(0.05); }
+  25%  { opacity: 1;   transform: scale(1.2); }
+  60%  { opacity: 0.6; transform: scale(2.5); }
+  100% { opacity: 0;   transform: scale(4); }
+}
+
+/* ─── Page container ─────────────────────────────────────────────────────── */
+
+main {
+  flex: 1;
+  width: 100%;
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 4rem 2rem;
+}
+
+/* ─── Footer ─────────────────────────────────────────────────────────────── */
+
+footer[aria-label="Site footer"] {
+  padding: 1.5rem 2rem;
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  border-top: 1px solid var(--border);
+  transition: border-color 0.3s;
+}
+
+/* ─── Home / Hero ────────────────────────────────────────────────────────── */
+
+.hero {
+  padding-top: 6rem;
+}
+
+.hero h1 {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--text);
+  margin-bottom: 1.25rem;
+}
+
+.hero-sub {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  color: var(--text-muted);
+  max-width: 520px;
+  line-height: 1.7;
+}
+
+.hero-bg {
+  position: absolute;
+  top: var(--nav-h);
+  left: 0;
+  width: 100%;
+  height: 400px;
+  background: radial-gradient(
+    ellipse 60% 40% at 20% 50%,
+    var(--accent-glow),
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+main[aria-labelledby="hero-heading"] {
+  position: relative;
+  z-index: 1;
+}
+
+/* ─── Projects listing ───────────────────────────────────────────────────── */
+
+main[aria-labelledby="projects-heading"] h1 {
+  font-size: 2rem;
+  margin-bottom: 2.5rem;
+}
+
+.projects-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+/* ─── Project card ───────────────────────────────────────────────────────── */
+
+.project-card {
+  display: block;
+  padding: 1.5rem 1.75rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  text-decoration: none;
+  transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+}
+
+.project-card:hover {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--surface) 92%, var(--accent) 8%);
+  box-shadow: 0 0 0 1px var(--accent-glow), 0 4px 24px var(--accent-glow);
+  text-decoration: none;
+}
+
+.project-card__title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.6rem;
+}
+
+.project-card__tech {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 0.75rem;
+}
+
+.project-card__chip {
+  font-size: 0.72rem;
+  font-weight: 500;
+  padding: 0.2em 0.65em;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent) 15%, transparent);
+  color: var(--accent);
+  letter-spacing: 0.02em;
+}
+
+.project-card__description {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* ─── Project detail ─────────────────────────────────────────────────────── */
+
+main[aria-labelledby="project-title"] h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.project-detail__tech {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 1.5rem;
+}
+
+.project-detail__chip {
+  font-size: 0.72rem;
+  font-weight: 500;
+  padding: 0.2em 0.65em;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent) 15%, transparent);
+  color: var(--accent);
+}
+
+.project-detail__links {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+}
+
+.project-detail__links a {
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 0.4em 1em;
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  color: var(--accent);
+  transition: background 0.15s;
+}
+
+.project-detail__links a:hover {
+  background: color-mix(in srgb, var(--accent) 15%, transparent);
+  text-decoration: none;
+}
+
+.project-detail__description {
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin-bottom: 2.5rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.project-detail__body {
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: var(--text);
+}
+
+.project-detail__body h2 {
+  font-size: 1.2rem;
+  margin: 2rem 0 0.75rem;
+  color: var(--text);
+}
+
+.project-detail__body p {
+  margin-bottom: 1rem;
+  color: var(--text-muted);
+}
+
+.project-detail__body code {
+  font-family: "Fira Code", "Cascadia Code", monospace;
+  font-size: 0.85em;
+  background: var(--border);
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+}
+
+/* ─── About ──────────────────────────────────────────────────────────────── */
+
+main[aria-labelledby="about-heading"] h1 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
+.about__bio p {
+  color: var(--text-muted);
+  max-width: 600px;
+  margin-bottom: 1rem;
+}
+
+.about__contact {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+}
+
+.about__contact h2 {
+  font-size: 1.1rem;
+  margin-bottom: 0.75rem;
+}
+
+.about__contact p {
+  color: var(--text-muted);
+}
+
+/* ─── Not found ──────────────────────────────────────────────────────────── */
+
+main[aria-labelledby="not-found-heading"] {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  padding-top: 8rem;
+}
+
+main[aria-labelledby="not-found-heading"] h1 {
+  font-size: 2rem;
+}
+
+main[aria-labelledby="not-found-heading"] p {
+  color: var(--text-muted);
+}
+
+/* ─── Motion layout wrapper ──────────────────────────────────────────────── */
+
+[data-page] {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
