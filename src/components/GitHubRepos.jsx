@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 
 const GITHUB_USER = 'inigomz';
-const API_URL = `https://api.github.com/users/${GITHUB_USER}/repos?sort=updated&per_page=100`;
+const API_URL = `https://api.github.com/users/${GITHUB_USER}/repos?sort=updated&per_page=100&type=owner`;
+const MAX_REPOS = 6;
 
 /**
  * Fetches and displays the user's public GitHub repositories.
@@ -34,13 +35,18 @@ export function GitHubRepos() {
         const data = await res.json();
         if (cancelled) return;
 
+        if (!Array.isArray(data)) {
+          throw new Error('GitHub API returned an unexpected response');
+        }
+
         const cleaned = data
           .filter((r) => !r.fork)
           .sort(
             (a, b) =>
               b.stargazers_count - a.stargazers_count ||
               new Date(b.pushed_at) - new Date(a.pushed_at)
-          );
+          )
+          .slice(0, MAX_REPOS);
         setRepos(cleaned);
       } catch (err) {
         if (cancelled || err.name === 'AbortError') return;

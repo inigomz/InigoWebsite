@@ -480,3 +480,24 @@ main[aria-labelledby="not-found-heading"] p {
   display: flex;
   flex-direction: column;
 }
+
+/* GitHub repositories */
+.gh { margin-top: 4rem; padding-top: 2.5rem; border-top: 1px solid var(--border); }
+.gh__header { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; margin-bottom: 1.5rem; }
+.gh__header h2 { font-size: 1.35rem; }
+.gh__profile-link { flex: none; font-size: 0.85rem; font-weight: 500; }
+.gh__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; list-style: none; }
+.gh__card { min-height: 150px; height: 100%; display: flex; flex-direction: column; padding: 1.25rem; color: var(--text); background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); transition: border-color 0.2s, background 0.2s, transform 0.2s; }
+.gh__card:hover { border-color: var(--accent); background: color-mix(in srgb, var(--surface) 92%, var(--accent) 8%); text-decoration: none; transform: translateY(-2px); }
+.gh__card-name { color: var(--accent); font-weight: 650; overflow-wrap: anywhere; }
+.gh__card-desc { display: -webkit-box; margin-top: 0.6rem; overflow: hidden; color: var(--text-muted); font-size: 0.85rem; line-height: 1.5; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
+.gh__card-meta { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: auto; padding-top: 1rem; color: var(--text-muted); font-size: 0.75rem; }
+.gh__card-lang { display: inline-flex; align-items: center; gap: 0.35rem; margin-right: auto; }
+.gh__lang-dot { width: 0.55rem; height: 0.55rem; background: var(--accent); border-radius: 50%; }
+.gh__status { color: var(--text-muted); font-size: 0.9rem; }
+.gh__status--error { padding: 1rem 1.25rem; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); }
+.gh__card--skeleton { overflow: hidden; position: relative; background: var(--surface); }
+.gh__card--skeleton::after { position: absolute; inset: 0; content: ''; background: linear-gradient(100deg, transparent 25%, var(--accent-glow) 50%, transparent 75%); transform: translateX(-100%); animation: gh-shimmer 1.5s infinite; }
+@keyframes gh-shimmer { to { transform: translateX(100%); } }
+@media (max-width: 560px) { .gh__grid { grid-template-columns: 1fr; } }
+@media (prefers-reduced-motion: reduce) { .gh__card { transition: none; } .gh__card:hover { transform: none; } .gh__card--skeleton::after { animation: none; } }

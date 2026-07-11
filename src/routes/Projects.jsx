@@ -1,6 +1,7 @@
 import { projects } from '../content/loader';
 import { ProjectCard } from '../components/ProjectCard';
 import { Reveal } from '../components/Reveal';
+import { GitHubRepos } from '../components/GitHubRepos';
 
 /**
  * Projects listing page.
@@ -27,6 +28,7 @@ export function Projects() {
           </Reveal>
         ))}
       </ul>
+      <GitHubRepos />
     </main>
   );
 }
