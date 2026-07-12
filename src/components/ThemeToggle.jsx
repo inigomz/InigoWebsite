@@ -1,24 +1,11 @@
 /**
- * @file Manages persistent light/dark theme selection and its transition animation.
+ * @file Manages session-only light/dark theme selection and its transition animation.
  */
 import {
   useCallback, useEffect, useRef, useState,
 } from 'react';
 
-const STORAGE_KEY = 'portfolio-theme';
 const MIST_DURATION = 700; // ms — how long the orange mist overlay stays visible
-
-/**
- * Reads the stored or system preference and applies it to <html>.
- * Returns the active theme string ('dark' | 'light').
- */
-function resolveInitialTheme() {
-  try {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored === 'light' || stored === 'dark') return stored;
-  } catch (_) { /* private browsing */ }
-  return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
-}
 
 /**
  * Animated sun ☀ / moon ☽ theme-toggle button.
@@ -27,17 +14,17 @@ function resolveInitialTheme() {
  * position and fades out, then flips the [data-theme] attribute on <html>.
  */
 export function ThemeToggle() {
-  const [theme, setTheme] = useState(resolveInitialTheme);
+  // Every browser session begins in light mode; the toggle remains available.
+  const [theme, setTheme] = useState('light');
   const [misting, setMisting] = useState(false);
   const [mistTarget, setMistTarget] = useState(null);
   const mistRef = useRef(null);
   const btnRef = useRef(null);
   const timerRef = useRef(null);
 
-  // Apply theme to document on mount and whenever it changes.
+  // Keep the root attribute synchronized so CSS theme tokens update together.
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
-    try { localStorage.setItem(STORAGE_KEY, theme); } catch (_) {}
   }, [theme]);
 
   // Clean up the timer if the component unmounts during a transition.
