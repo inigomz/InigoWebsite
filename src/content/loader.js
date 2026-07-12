@@ -41,6 +41,8 @@ export function parseProject(filePath, raw) {
   }
   return {
     slug: slugFromPath(filePath),
+    // Explicit order keeps curated projects stable; unranked additions fall back below them.
+    order: data.order ?? Number.MAX_SAFE_INTEGER,
     title: data.title,
     tech: data.tech,
     links: data.links,
@@ -51,7 +53,7 @@ export function parseProject(filePath, raw) {
 
 export const projects = Object.entries(modules)
   .map(([path, raw]) => parseProject(path, raw))
-  .sort((a, b) => a.title.localeCompare(b.title));
+  .sort((a, b) => a.order - b.order || a.title.localeCompare(b.title));
 
 export function getProjectBySlug(slug) {
   return projects.find((p) => p.slug === slug);

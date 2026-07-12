@@ -1,4 +1,5 @@
 ---
+order: 3
 title: "Pathfinding Visualizer"
 tech: ["Python", "JavaScript", "React", "Canvas", "Algorithms"]
 links:
@@ -9,10 +10,10 @@ description: "An interactive browser demo that shows how BFS, Dijkstra, and A st
 ## Overview
 
 Pathfinding Visualizer is an interactive browser application built with
-JavaScript, React, and the HTML Canvas API. It demonstrates how several
-pathfinding algorithms move through a customizable grid where users can draw
-walls and weighted spaces, reposition the start and goal, and watch every
-search step as it happens.
+JavaScript, React, and the HTML Canvas API. It demonstrates how BFS, 
+Dijkstra's algorithm, and A star search move through a customizable grid. 
+Users can draw walls and weighted spaces, reposition the start and 
+goal, and watch every search step as it happens.
 
 ## How it works
 
@@ -27,6 +28,6 @@ path, or reset the entire grid.
 This project strengthened my understanding of how BFS, Dijkstra, and A star
 make different exploration and cost decisions on the same map. Converting the
 original Python desktop application into a browser experience also taught me
-how to separate reusable algorithm logic from React state, stream search events
-with JavaScript generators, draw efficiently with Canvas, and coordinate user
-input with timed animations.
+how to separate reusable algorithm logic from Python to JavaScript, stream search 
+events with JavaScript generators, draw efficiently with Canvas, and coordinate 
+user input with timed animations.
