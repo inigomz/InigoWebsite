@@ -42,6 +42,9 @@ export function About() {
           </a>
           .
         </p>
+        <p>
+          You can also contact me via email: inigomzulueta@gmail.com
+        </p>
       </section>
     </main>
   );

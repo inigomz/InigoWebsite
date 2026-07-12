@@ -1,3 +1,6 @@
+/**
+ * @file Fetches, filters, and displays public GitHub repositories with loading and error states.
+ */
 import { useEffect, useState } from 'react';
 
 const GITHUB_USER = 'inigomz';

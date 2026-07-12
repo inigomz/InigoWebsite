@@ -1,3 +1,6 @@
+/**
+ * @file Implements animation primitives and their reduced-motion fallbacks.
+ */
 import anime from 'animejs';
 import { DURATION, EASING, STAGGER } from './tokens';
 

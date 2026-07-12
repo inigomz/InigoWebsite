@@ -1,3 +1,6 @@
+/**
+ * @file Coordinates page exit and entrance animations when the route changes.
+ */
 import {
   cloneElement, isValidElement, useEffect, useRef, useState,
 } from 'react';

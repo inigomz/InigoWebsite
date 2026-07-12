@@ -1,3 +1,6 @@
+/**
+ * @file Renders project records and the live GitHub repository section.
+ */
 import { projects } from '../content/loader';
 import { ProjectCard } from '../components/ProjectCard';
 import { Reveal } from '../components/Reveal';

@@ -1,3 +1,6 @@
+/**
+ * @file Loads Markdown project files, validates frontmatter, and exposes query helpers.
+ */
 import matter from 'gray-matter';
 import { REQUIRED_FIELDS } from './schema.js';
 

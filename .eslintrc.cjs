@@ -1,3 +1,6 @@
+/**
+ * @file Defines the project-wide Airbnb lint policy and narrowly scoped environment exceptions.
+ */
 module.exports = {
   root: true,
   extends: ['airbnb'],
@@ -63,6 +66,14 @@ module.exports = {
       files: ['src/components/GitHubRepos.jsx', 'src/routes/Home.jsx'],
       rules: {
         'react/no-array-index-key': 'off',
+      },
+    },
+    {
+      // Generators stream search events frame-by-frame; continue keeps hot loops readable.
+      files: ['src/demos/pathfindingVisualizer.js'],
+      rules: {
+        'no-continue': 'off',
+        'no-restricted-syntax': 'off',
       },
     },
     {

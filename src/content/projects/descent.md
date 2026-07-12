@@ -23,5 +23,10 @@ volume, resolution, and fullscreen mode.
 ## My contributions
 
 I worked on the procedural dungeon generation system and its connection to
-Unity's tilemaps. I also helped set up GitHub Actions, fix bugs, review changes,
-and test gameplay features throughout development.
+Unity's tilemaps. The procedural dungeon generation system includes room creation,
+random path creation, automated wall placements, and renders the entire tilemap 
+layout through Unity's engine. I created the title and options menus, and worked 
+on the player’s movement, physics, collisions, and camera setup. I also helped 
+set up GitHub Actions workflows, fix bugs, review changes, and test gameplay 
+features throughout development. GitHub Actions was used for continuous integration 
+and setting up automated tests. 

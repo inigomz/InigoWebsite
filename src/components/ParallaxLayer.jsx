@@ -1,3 +1,6 @@
+/**
+ * @file Applies scroll-linked depth motion to a configurable wrapper element.
+ */
 import { useEffect, useRef } from 'react';
 
 import { applyParallax } from '../motion/engine';

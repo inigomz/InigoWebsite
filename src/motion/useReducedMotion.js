@@ -1,3 +1,6 @@
+/**
+ * @file Keeps React components synchronized with the operating-system motion preference.
+ */
 import { useEffect, useState } from 'react';
 
 const QUERY = '(prefers-reduced-motion: reduce)';

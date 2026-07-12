@@ -1,3 +1,6 @@
+/**
+ * @file Renders contextual recovery links for unknown site or project routes.
+ */
 import { Link } from 'react-router-dom';
 
 /**

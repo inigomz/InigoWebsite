@@ -1,3 +1,6 @@
+/**
+ * @file Reveals content when it enters the viewport while respecting reduced motion.
+ */
 import { useEffect, useRef } from 'react';
 
 import { playReveal } from '../motion/engine';

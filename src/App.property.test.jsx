@@ -1,3 +1,6 @@
+/**
+ * @file Uses generated routes to verify the application shell and fallback routing invariants.
+ */
 import {
   describe, expect, it, vi,
 } from 'vitest';

@@ -1,3 +1,6 @@
+/**
+ * @file Checks that arbitrary valid Markdown inputs become stable project records.
+ */
 import { describe, expect, it } from 'vitest';
 import fc from 'fast-check';
 import { parseProject } from './loader.js';

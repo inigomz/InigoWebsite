@@ -1,3 +1,6 @@
+/**
+ * @file Renders the animated landing-page introduction.
+ */
 import { useEffect, useRef } from 'react';
 
 import { ParallaxLayer } from '../components/ParallaxLayer';

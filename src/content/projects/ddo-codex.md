@@ -4,7 +4,7 @@ tech: ["React", "Vite", "Netlify", "OpenAI API"]
 links:
   - { label: "Repo", url: "https://github.com/inigomz/DDOcodexWebsite" }
   - { label: "Live Site", url: "https://cevangelddocodex.netlify.app/" }
-description: "An AI powered Dungeons & Dragons Online gear planner that creates optimized loadouts from plain English character goals."
+description: "An AI powered Dungeons & Dragons Online gear planner that creates loadouts from typed character goals."
 ---
 
 ## Overview

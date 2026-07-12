@@ -1,3 +1,6 @@
+/**
+ * @file Checks complete and missing project-detail states with generated records.
+ */
 import {
   describe, expect, it, vi,
 } from 'vitest';

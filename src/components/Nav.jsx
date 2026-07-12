@@ -1,3 +1,6 @@
+/**
+ * @file Renders primary navigation and exposes the active route accessibly.
+ */
 import { NavLink } from 'react-router-dom';
 import { ThemeToggle } from './ThemeToggle';
 

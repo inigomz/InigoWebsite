@@ -1,3 +1,6 @@
+/**
+ * @file Defines the persistent site shell and maps URLs to page components.
+ */
 import { Routes, Route } from 'react-router-dom';
 
 import { Nav } from './components/Nav';

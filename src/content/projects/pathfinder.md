@@ -1,9 +1,9 @@
-﻿---
+---
 title: "Pathfinding Visualizer"
-tech: ["Python", "Tkinter", "Algorithms"]
+tech: ["JavaScript", "React", "Canvas", "Algorithms"]
 links:
   - { label: "Repo", url: "https://github.com/inigo/pathfinder" }
-description: "A Python application that shows how BFS, Dijkstra, and A star search for a path across a customizable grid."
+description: "An interactive browser demo that shows how BFS, Dijkstra, and A star search for a path across a customizable grid."
 ---
 
 ## Overview

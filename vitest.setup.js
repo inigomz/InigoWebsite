@@ -1,3 +1,6 @@
+/**
+ * @file Installs shared DOM matchers and browser API stubs before each test file runs.
+ */
 import '@testing-library/jest-dom';
 
 // jsdom does not implement IntersectionObserver, but several components

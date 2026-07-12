@@ -1,3 +1,6 @@
+/**
+ * @file Checks validation errors for arbitrary combinations of missing project metadata.
+ */
 import { describe, expect, it } from 'vitest';
 import fc from 'fast-check';
 import { parseProject } from './loader.js';

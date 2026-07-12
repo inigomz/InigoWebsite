@@ -1,3 +1,6 @@
+/**
+ * @file Manages persistent light/dark theme selection and its transition animation.
+ */
 import {
   useCallback, useEffect, useRef, useState,
 } from 'react';

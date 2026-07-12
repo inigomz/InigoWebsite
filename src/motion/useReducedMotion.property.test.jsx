@@ -1,3 +1,6 @@
+/**
+ * @file Verifies the reduced-motion hook responds to arbitrary media-query changes.
+ */
 import {
   afterEach, describe, expect, it, vi,
 } from 'vitest';

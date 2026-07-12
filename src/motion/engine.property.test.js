@@ -1,3 +1,6 @@
+/**
+ * @file Verifies animation invariants across generated inputs and reduced-motion states.
+ */
 import {
   afterEach, beforeEach, describe, expect, it, vi,
 } from 'vitest';

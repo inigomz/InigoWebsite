@@ -1,3 +1,6 @@
+/**
+ * @file Centralizes reusable animation durations, easing curves, and stagger timings.
+ */
 // Motion design tokens for the Portfolio_Website Animation_Engine.
 //
 // These tokens are the single source of truth for animation timing,

@@ -1,3 +1,6 @@
+/**
+ * @file Checks that arbitrary project records render once with correct links.
+ */
 import {
   describe, expect, it, vi,
 } from 'vitest';
