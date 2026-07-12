@@ -19,7 +19,7 @@ import { parseProject } from './loader.js';
 const safeString = fc
   .stringOf(
     fc.constantFrom(...'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 '),
-    { minLength: 1 }
+    { minLength: 1 },
   )
   .map((s) => s.trim())
   .filter((s) => s.length > 0);
@@ -35,14 +35,16 @@ const linksArray = fc.array(linkObject, { minLength: 1 });
 
 const safeName = fc.stringOf(
   fc.constantFrom(...'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_'),
-  { minLength: 1 }
+  { minLength: 1 },
 );
 
 /**
  * Build a raw markdown string using JSON flow style for sequences so arbitrary
  * string values never break YAML indentation rules.
  */
-function buildRawMarkdown({ title, tech, links, description, body }) {
+function buildRawMarkdown({
+  title, tech, links, description, body,
+}) {
   // Use JSON.stringify for safe quoting of every value
   const techFlow = `[${tech.map((t) => JSON.stringify(t)).join(', ')}]`;
   const linksFlow = `[${links
@@ -71,7 +73,9 @@ describe('parseProject record shape property tests', () => {
         fc.string(),
         (name, title, tech, links, description, body) => {
           const filePath = `./projects/${name}.md`;
-          const raw = buildRawMarkdown({ title, tech, links, description, body });
+          const raw = buildRawMarkdown({
+            title, tech, links, description, body,
+          });
           const record = parseProject(filePath, raw);
 
           // slug is derived from filename stem
@@ -99,9 +103,9 @@ describe('parseProject record shape property tests', () => {
 
           // body is a string (may be empty)
           expect(typeof record.body).toBe('string');
-        }
+        },
       ),
-      { numRuns: 200 }
+      { numRuns: 200 },
     );
   });
 });

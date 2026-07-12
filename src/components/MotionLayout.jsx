@@ -1,4 +1,6 @@
-import { cloneElement, isValidElement, useEffect, useRef, useState } from 'react';
+import {
+  cloneElement, isValidElement, useEffect, useRef, useState,
+} from 'react';
 import { useLocation } from 'react-router-dom';
 
 import { playTransition } from '../motion/engine';

@@ -20,7 +20,7 @@ const nonEmptyString = fc
 
 const safeName = fc.stringOf(
   fc.constantFrom(...'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_'),
-  { minLength: 1 }
+  { minLength: 1 },
 );
 
 /**
@@ -63,7 +63,7 @@ describe('parseProject missing-frontmatter property tests', () => {
           }
         }
       }),
-      { numRuns: 200 }
+      { numRuns: 200 },
     );
   });
 });

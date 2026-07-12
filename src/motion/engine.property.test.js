@@ -1,15 +1,7 @@
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import {
+  afterEach, beforeEach, describe, expect, it, vi,
+} from 'vitest';
 import fc from 'fast-check';
-
-// Hoisted by Vitest so the engine module under test imports the mock
-// instead of the real animejs library. The default export is the
-// `anime()` function and it carries `stagger` as a property, mirroring
-// the surface of animejs v3 that `engine.js` consumes.
-vi.mock('animejs', () => {
-  const animeMock = vi.fn(() => ({ finished: Promise.resolve() }));
-  animeMock.stagger = vi.fn(() => 0);
-  return { default: animeMock };
-});
 
 // Import after the mock so we get the mocked default export and can
 // assert on its call count.
@@ -21,6 +13,16 @@ import {
   playReveal,
   playTransition,
 } from './engine';
+
+// Hoisted by Vitest so the engine module under test imports the mock
+// instead of the real animejs library. The default export is the
+// `anime()` function and it carries `stagger` as a property, mirroring
+// the surface of animejs v3 that `engine.js` consumes.
+vi.mock('animejs', () => {
+  const animeMock = vi.fn(() => ({ finished: Promise.resolve() }));
+  animeMock.stagger = vi.fn(() => 0);
+  return { default: animeMock };
+});
 
 /**
  * Generator for a synthetic target element specification.
@@ -36,11 +38,11 @@ const elementSpec = fc.record({
     'translateY(12px)',
     'translate3d(0, 40px, 0)',
     'rotate(45deg) scale(1.1)',
-    'invalid'
+    'invalid',
   ),
   childCount: fc.integer({ min: 0, max: 5 }),
   parallaxFactor: fc.option(
-    fc.constantFrom('0', '0.1', '0.2', '0.5', '1', '-0.3', 'NaN', '')
+    fc.constantFrom('0', '0.1', '0.2', '0.5', '1', '-0.3', 'NaN', ''),
   ),
 });
 
@@ -96,7 +98,7 @@ describe('Animation_Engine reduced-motion gate (property tests)', () => {
           'playReveal',
           'applyParallax',
           'playTransition',
-          'playMicro'
+          'playMicro',
         ),
         elementSpec,
         elementSpec,
@@ -140,9 +142,9 @@ describe('Animation_Engine reduced-motion gate (property tests)', () => {
             expect(anime).not.toHaveBeenCalled();
             assertFinalState(primary);
           }
-        }
+        },
       ),
-      { numRuns: 100 }
+      { numRuns: 100 },
     );
   });
 });
@@ -182,7 +184,7 @@ describe('applyParallax determinism (property tests)', () => {
 
         expect(el.style.transform).toBe(`translate3d(0, ${y * f}px, 0)`);
       }),
-      { numRuns: 200 }
+      { numRuns: 200 },
     );
   });
 
@@ -213,7 +215,7 @@ describe('applyParallax determinism (property tests)', () => {
         const v2 = parseFloat(m2[1]);
         expect(v1).toBeLessThanOrEqual(v2);
       }),
-      { numRuns: 200 }
+      { numRuns: 200 },
     );
   });
 });

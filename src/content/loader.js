@@ -33,7 +33,7 @@ export function parseProject(filePath, raw) {
   if (missing.length > 0) {
     const fieldList = missing.map((f) => `"${f}"`).join(', ');
     throw new Error(
-      `[portfolio-website] ${filePath}: missing required frontmatter field(s) ${fieldList}`
+      `[portfolio-website] ${filePath}: missing required frontmatter field(s) ${fieldList}`,
     );
   }
   return {

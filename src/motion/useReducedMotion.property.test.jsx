@@ -1,4 +1,6 @@
-import { afterEach, describe, expect, it, vi } from 'vitest';
+import {
+  afterEach, describe, expect, it, vi,
+} from 'vitest';
 import { act, renderHook } from '@testing-library/react';
 import fc from 'fast-check';
 
@@ -83,9 +85,9 @@ describe('useReducedMotion (property tests)', () => {
           }
 
           unmount();
-        }
+        },
       ),
-      { numRuns: 50 }
+      { numRuns: 50 },
     );
   });
 });

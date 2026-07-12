@@ -42,9 +42,8 @@ export function GitHubRepos() {
         const cleaned = data
           .filter((r) => !r.fork)
           .sort(
-            (a, b) =>
-              b.stargazers_count - a.stargazers_count ||
-              new Date(b.pushed_at) - new Date(a.pushed_at)
+            (a, b) => b.stargazers_count - a.stargazers_count
+              || new Date(b.pushed_at) - new Date(a.pushed_at),
           )
           .slice(0, MAX_REPOS);
         setRepos(cleaned);
@@ -71,13 +70,17 @@ export function GitHubRepos() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          @{GITHUB_USER} ↗
+          @
+          {GITHUB_USER}
+          {' '}
+          ↗
         </a>
       </div>
 
       {error && (
         <p className="gh__status gh__status--error">
-          Couldn&apos;t load repositories right now. View them directly on{' '}
+          Couldn&apos;t load repositories right now. View them directly on
+          {' '}
           <a
             href={`https://github.com/${GITHUB_USER}`}
             target="_blank"
@@ -123,10 +126,14 @@ export function GitHubRepos() {
                     </span>
                   )}
                   <span className="gh__card-stat" title="Stars">
-                    ★ {repo.stargazers_count}
+                    ★
+                    {' '}
+                    {repo.stargazers_count}
                   </span>
                   <span className="gh__card-stat" title="Forks">
-                    ⑂ {repo.forks_count}
+                    ⑂
+                    {' '}
+                    {repo.forks_count}
                   </span>
                 </span>
               </a>

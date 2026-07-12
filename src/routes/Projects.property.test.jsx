@@ -1,7 +1,12 @@
-import { describe, expect, it, vi } from 'vitest';
+import {
+  describe, expect, it, vi,
+} from 'vitest';
 import { cleanup, render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import fc from 'fast-check';
+
+import * as loader from '../content/loader';
+import { Projects } from './Projects';
 
 // Mock the loader so the test controls which projects are visible.
 vi.mock('../content/loader', () => ({
@@ -19,9 +24,6 @@ vi.mock('../motion/engine', () => ({
   applyParallax: vi.fn(),
 }));
 
-import * as loader from '../content/loader';
-import { Projects } from './Projects';
-
 /**
  * Property 4: Projects page lists and links every record.
  *
@@ -34,14 +36,14 @@ import { Projects } from './Projects';
 const safeString = fc
   .stringOf(
     fc.constantFrom(...'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 '),
-    { minLength: 1 }
+    { minLength: 1 },
   )
   .map((s) => s.trim())
   .filter((s) => s.length > 0);
 
 const slugArb = fc.stringOf(
   fc.constantFrom(...'abcdefghijklmnopqrstuvwxyz0123456789-'),
-  { minLength: 1 }
+  { minLength: 1 },
 );
 
 const projectArb = fc.record({
@@ -51,7 +53,7 @@ const projectArb = fc.record({
   description: safeString,
   links: fc.array(
     fc.record({ label: safeString, url: safeString }),
-    { minLength: 1 }
+    { minLength: 1 },
   ),
   body: fc.string(),
 });
@@ -64,7 +66,7 @@ function renderProjects(projects) {
   return render(
     <MemoryRouter initialEntries={['/projects']}>
       <Projects />
-    </MemoryRouter>
+    </MemoryRouter>,
   );
 }
 
@@ -84,7 +86,7 @@ describe('Projects page property tests', () => {
 
             // Every <a class="project-card"> rendered inside the list.
             const links = Array.from(
-              document.querySelectorAll('a.project-card')
+              document.querySelectorAll('a.project-card'),
             );
             expect(links).toHaveLength(projects.length);
 
@@ -105,9 +107,9 @@ describe('Projects page property tests', () => {
             unmount();
             cleanup();
           }
-        }
+        },
       ),
-      { numRuns: 50 }
+      { numRuns: 50 },
     );
   });
 });

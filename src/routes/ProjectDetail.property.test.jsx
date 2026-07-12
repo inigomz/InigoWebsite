@@ -1,7 +1,12 @@
-import { describe, expect, it, vi } from 'vitest';
+import {
+  describe, expect, it, vi,
+} from 'vitest';
 import { cleanup, render, screen } from '@testing-library/react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import fc from 'fast-check';
+
+import { getProjectBySlug } from '../content/loader';
+import { ProjectDetail } from './ProjectDetail';
 
 vi.mock('../content/loader', () => ({
   projects: [],
@@ -16,9 +21,6 @@ vi.mock('../motion/engine', () => ({
   applyParallax: vi.fn(),
 }));
 
-import { getProjectBySlug } from '../content/loader';
-import { ProjectDetail } from './ProjectDetail';
-
 /**
  * Property 5: Project detail renders all record content.
  *
@@ -32,14 +34,14 @@ import { ProjectDetail } from './ProjectDetail';
 const safeString = fc
   .stringOf(
     fc.constantFrom(...'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 '),
-    { minLength: 1 }
+    { minLength: 1 },
   )
   .map((s) => s.trim())
   .filter((s) => s.length > 0);
 
 const slugArb = fc.stringOf(
   fc.constantFrom(...'abcdefghijklmnopqrstuvwxyz0123456789-'),
-  { minLength: 1 }
+  { minLength: 1 },
 );
 
 const projectArb = fc.record({
@@ -48,7 +50,7 @@ const projectArb = fc.record({
   tech: fc.uniqueArray(safeString, { minLength: 1, maxLength: 5 }),
   links: fc.uniqueArray(
     fc.record({ label: safeString, url: fc.constant('https://example.com') }),
-    { minLength: 1, maxLength: 4, selector: (l) => l.label }
+    { minLength: 1, maxLength: 4, selector: (l) => l.label },
   ),
   description: safeString,
   // Plain text body so react-markdown renders it as a <p> we can query.
@@ -62,7 +64,7 @@ function renderDetail(project) {
       <Routes>
         <Route path="/projects/:slug" element={<ProjectDetail />} />
       </Routes>
-    </MemoryRouter>
+    </MemoryRouter>,
   );
 }
 
@@ -81,7 +83,7 @@ describe('ProjectDetail property tests', () => {
           const techList = screen.getByRole('list', { name: /technologies used/i });
           for (const t of project.tech) {
             const chip = Array.from(techList.querySelectorAll('li')).find(
-              (li) => li.textContent.trim() === t
+              (li) => li.textContent.trim() === t,
             );
             expect(chip).toBeTruthy();
           }
@@ -108,7 +110,7 @@ describe('ProjectDetail property tests', () => {
           cleanup();
         }
       }),
-      { numRuns: 50 }
+      { numRuns: 50 },
     );
   });
 
@@ -132,7 +134,7 @@ describe('ProjectDetail property tests', () => {
             <Routes>
               <Route path="/projects/:slug" element={<ProjectDetail />} />
             </Routes>
-          </MemoryRouter>
+          </MemoryRouter>,
         );
 
         try {
@@ -145,7 +147,7 @@ describe('ProjectDetail property tests', () => {
           cleanup();
         }
       }),
-      { numRuns: 50 }
+      { numRuns: 50 },
     );
   });
 });

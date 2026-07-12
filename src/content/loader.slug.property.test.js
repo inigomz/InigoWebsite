@@ -25,7 +25,7 @@ describe('slugFromPath property tests', () => {
         const path = `./projects/${name}.md`;
         expect(slugFromPath(path)).toBe(name);
       }),
-      { numRuns: 200 }
+      { numRuns: 200 },
     );
   });
 });

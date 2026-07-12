@@ -33,7 +33,9 @@ import { useReducedMotion } from '../motion/useReducedMotion';
  *
  * @param {{ as?: keyof JSX.IntrinsicElements | React.ElementType, factor?: number, children?: React.ReactNode }} props
  */
-export function ParallaxLayer({ as: Tag = 'div', factor = 0.2, children, ...rest }) {
+export function ParallaxLayer({
+  as: Tag = 'div', factor = 0.2, children, ...rest
+}) {
   const ref = useRef(null);
   const reducedMotion = useReducedMotion();
 

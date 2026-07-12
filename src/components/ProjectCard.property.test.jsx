@@ -1,7 +1,14 @@
-import { afterEach, describe, expect, it, vi } from 'vitest';
-import { act, cleanup, render, screen } from '@testing-library/react';
+import {
+  afterEach, describe, expect, it, vi,
+} from 'vitest';
+import {
+  act, cleanup, render, screen,
+} from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import fc from 'fast-check';
+
+import { playMicro } from '../motion/engine';
+import { ProjectCard } from './ProjectCard';
 
 // Mock the engine so we can count playMicro invocations precisely. Keeping
 // the resolved promise lets the in-flight debounce inside ProjectCard clear
@@ -13,9 +20,6 @@ vi.mock('../motion/engine', () => ({
   playTransition: vi.fn(() => Promise.resolve()),
   applyParallax: vi.fn(),
 }));
-
-import { playMicro } from '../motion/engine';
-import { ProjectCard } from './ProjectCard';
 
 /**
  * Property 14: Micro-interaction trigger plays exactly once per activation.
@@ -45,7 +49,7 @@ function renderCard() {
   return render(
     <MemoryRouter>
       <ProjectCard slug="x" title="X" tech={['a']} description="d" />
-    </MemoryRouter>
+    </MemoryRouter>,
   );
 }
 
@@ -73,7 +77,7 @@ describe('ProjectCard micro-interaction property tests', () => {
                   card.focus();
                 } else {
                   card.dispatchEvent(
-                    new Event('pointerenter', { bubbles: true })
+                    new Event('pointerenter', { bubbles: true }),
                   );
                 }
                 // Drain microtasks so the resolved playMicro promise clears
@@ -98,9 +102,9 @@ describe('ProjectCard micro-interaction property tests', () => {
             cleanup();
             playMicro.mockClear();
           }
-        }
+        },
       ),
-      { numRuns: 25 }
+      { numRuns: 25 },
     );
   });
 });

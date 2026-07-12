@@ -1,7 +1,11 @@
-import { describe, expect, it, vi } from 'vitest';
+import {
+  describe, expect, it, vi,
+} from 'vitest';
 import { cleanup, render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import fc from 'fast-check';
+
+import { App } from './App';
 
 // Keep the loader deterministic and small so the tests focus purely on routing.
 vi.mock('./content/loader', () => ({
@@ -17,8 +21,6 @@ vi.mock('./motion/engine', () => ({
   playTransition: vi.fn(() => Promise.resolve()),
   applyParallax: vi.fn(),
 }));
-
-import { App } from './App';
 
 /**
  * Property 7: Unknown route renders site Not_Found.
@@ -41,9 +43,9 @@ import { App } from './App';
 const segmentArb = fc
   .stringOf(
     fc.constantFrom(
-      ...'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_'
+      ...'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_',
     ),
-    { minLength: 1, maxLength: 12 }
+    { minLength: 1, maxLength: 12 },
   );
 
 // Known route prefixes the App actually serves. We exclude these so the
@@ -60,13 +62,13 @@ const unknownPathArb = fc
     // already excludes any path beginning with /projects, so we're safe.
     return true;
   })
-  .map((segments) => '/' + segments.join('/'));
+  .map((segments) => `/${segments.join('/')}`);
 
 function renderAppAt(path) {
   return render(
     <MemoryRouter initialEntries={[path]}>
       <App />
-    </MemoryRouter>
+    </MemoryRouter>,
   );
 }
 
@@ -86,7 +88,7 @@ describe('App routing property tests', () => {
           cleanup();
         }
       }),
-      { numRuns: 50 }
+      { numRuns: 50 },
     );
   });
 
@@ -110,7 +112,7 @@ describe('App routing property tests', () => {
           cleanup();
         }
       }),
-      { numRuns: 25 }
+      { numRuns: 25 },
     );
   });
 });

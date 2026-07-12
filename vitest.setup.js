@@ -9,9 +9,13 @@ if (typeof globalThis.IntersectionObserver === 'undefined') {
     constructor(callback) {
       this.callback = callback;
     }
+
     observe() {}
+
     unobserve() {}
+
     disconnect() {}
+
     takeRecords() {
       return [];
     }

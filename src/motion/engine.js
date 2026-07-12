@@ -69,7 +69,7 @@ export function playHero(target, { reducedMotion } = {}) {
       delay: anime.stagger(STAGGER.hero),
       duration: DURATION.hero,
       easing: EASING.standard,
-    }).finished
+    }).finished,
   );
 }
 
@@ -94,7 +94,7 @@ export function playReveal(el, { reducedMotion } = {}) {
       translateY: [16, 0],
       duration: DURATION.reveal,
       easing: EASING.standard,
-    }).finished
+    }).finished,
   );
 }
 
@@ -145,24 +145,24 @@ export function playTransition(outgoing, incoming, { reducedMotion } = {}) {
   }
   const out = outgoing
     ? safeFinished(
-        anime({
-          targets: outgoing,
-          opacity: [1, 0],
-          duration: DURATION.transitionOut,
-          easing: EASING.standard,
-        }).finished
-      )
+      anime({
+        targets: outgoing,
+        opacity: [1, 0],
+        duration: DURATION.transitionOut,
+        easing: EASING.standard,
+      }).finished,
+    )
     : Promise.resolve();
   const inn = incoming
     ? safeFinished(
-        anime({
-          targets: incoming,
-          opacity: [0, 1],
-          translateY: [8, 0],
-          duration: DURATION.transitionIn,
-          easing: EASING.standard,
-        }).finished
-      )
+      anime({
+        targets: incoming,
+        opacity: [0, 1],
+        translateY: [8, 0],
+        duration: DURATION.transitionIn,
+        easing: EASING.standard,
+      }).finished,
+    )
     : Promise.resolve();
   return Promise.all([out, inn]).then(() => undefined);
 }
@@ -189,6 +189,6 @@ export function playMicro(el, { reducedMotion } = {}) {
       scale: [1, 1.03, 1],
       duration: DURATION.micro,
       easing: EASING.spring,
-    }).finished
+    }).finished,
   );
 }

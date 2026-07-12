@@ -1,4 +1,6 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import {
+  useCallback, useEffect, useRef, useState,
+} from 'react';
 
 const STORAGE_KEY = 'portfolio-theme';
 const MIST_DURATION = 700; // ms — how long the orange mist overlay stays visible

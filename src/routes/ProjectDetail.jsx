@@ -25,7 +25,9 @@ export function ProjectDetail() {
     return <NotFound variant="project" />;
   }
 
-  const { title, tech, links, description, body } = project;
+  const {
+    title, tech, links, description, body,
+  } = project;
 
   return (
     <main aria-labelledby="project-title">

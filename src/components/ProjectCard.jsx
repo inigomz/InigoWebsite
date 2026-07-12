@@ -18,7 +18,9 @@ import { useReducedMotion } from '../motion/useReducedMotion';
  * @param {{ slug: string, title: string, tech: string[], description: string }} props
  * @returns {JSX.Element}
  */
-export function ProjectCard({ slug, title, tech, description }) {
+export function ProjectCard({
+  slug, title, tech, description,
+}) {
   const cardRef = useRef(null);
   const inFlight = useRef(false);
   const reducedMotion = useReducedMotion();
