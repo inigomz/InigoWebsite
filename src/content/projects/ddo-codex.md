@@ -1,6 +1,6 @@
 ﻿---
 title: "DDO Codex Website"
-tech: ["React", "Vite", "Netlify", "OpenAI API"]
+tech: ["JavaScript", "Python", "React", "Vite", "Netlify", "OpenAI API"]
 links:
   - { label: "Repo", url: "https://github.com/inigomz/DDOcodexWebsite" }
   - { label: "Live Site", url: "https://cevangelddocodex.netlify.app/" }
@@ -30,5 +30,6 @@ DDO Wiki.
 
 This project gave me experience working with a large amount of game data,
 building rules for gear selection, and turning a player's written request into
-useful results. Keeping the gear planner separate from the AI advisor also made
-the results easier to test and understand.
+useful results. Converting the original python data pipelines to JavaScript was
+a great learning experience as well. Keeping the gear planner separate from the 
+AI advisor also made the results easier to test and understand.
