@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { cloneElement, isValidElement, useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import { playTransition } from '../motion/engine';
@@ -38,6 +38,13 @@ export function MotionLayout({ children }) {
   // transition so the old content is visible until the fade-out completes.
   const [displayed, setDisplayed] = useState({ pathname, children });
 
+  // <Routes> consumes router context directly. Pinning its location prevents
+  // it from rendering the destination route before the outgoing transition
+  // has completed and displayed has intentionally advanced.
+  const displayedChildren = isValidElement(displayed.children)
+    ? cloneElement(displayed.children, { location: displayed.pathname })
+    : displayed.children;
+
   useEffect(() => {
     // Capture the ref value at effect-run time so the closure is stable even
     // if the ref node is replaced between the two halves of the transition.
@@ -60,7 +67,7 @@ export function MotionLayout({ children }) {
 
   return (
     <div ref={containerRef} data-page={displayed.pathname}>
-      {displayed.children}
+      {displayedChildren}
     </div>
   );
 }

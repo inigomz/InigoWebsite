@@ -16,7 +16,7 @@
   --border:      #2a2d3a;
   --text:        #e2e4ed;
   --text-muted:  #7c8099;
-  --accent:      #f97316;   /* orange */
+  --accent:      #f97316;   /* original orange */
   --accent-dim:  #c2530a;
   --accent-glow: #f9731622;
   --radius:      8px;
@@ -29,14 +29,14 @@
 /* ─── Tokens — light ─────────────────────────────────────────────────────── */
 
 [data-theme="light"] {
-  --bg:          #faf9f7;
-  --surface:     #ffffff;
+  --bg:          #f0eee9;   /* Pantone 11-4201 Cloud Dancer */
+  --surface:     #e4d7cb;   /* lighter Shifting Sand tint */
   --border:      #e5e2dc;
   --text:        #1a1710;
   --text-muted:  #6b6760;
-  --accent:      #c2530a;   /* deeper orange for legibility on white */
-  --accent-dim:  #9a3f06;
-  --accent-glow: #f9731618;
+  --accent:      #9c514a;   /* accessible companion to Coral Haze */
+  --accent-dim:  #7e403b;
+  --accent-glow: #e38e8455;
 
   color-scheme: light;
 }
@@ -81,7 +81,7 @@ nav[aria-label="Main navigation"] {
   align-items: center;
   gap: 2rem;
   padding: 0 2rem;
-  background: color-mix(in srgb, var(--bg) 80%, transparent);
+  background: var(--surface);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
   transition: background 0.3s, border-color 0.3s;
@@ -193,35 +193,60 @@ nav[aria-label="Main navigation"] .theme-toggle {
   inset: 0;
   z-index: 9999;
   pointer-events: none;
+  overflow: hidden;
 
-  /* Radial mist centred on the button — JS writes --mist-x / --mist-y */
+  /* JS positions the expanding mist at the toggle button. */
   --mist-x: 50vw;
   --mist-y: 50vh;
-
-  background: radial-gradient(
-    circle at var(--mist-x) var(--mist-y),
-    #f97316cc 0%,
-    #f9731644 35%,
-    transparent 70%
-  );
+  --mist-core: #e38e84d9;
+  --mist-middle: #e38e8480;
+  --mist-edge: #e38e8438;
 
   opacity: 0;
-  transform: scale(0.05);
-  transform-origin: var(--mist-x) var(--mist-y);
-  transition: none;
+  visibility: hidden;
+}
+
+.theme-mist--to-light {
+  --mist-core: #f97316d9;
+  --mist-middle: #f9731680;
+  --mist-edge: #f9731638;
 }
 
 .theme-mist--active {
-  animation: mist-expand 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  opacity: 1;
+  visibility: visible;
+}
+
+.theme-mist::before {
+  position: absolute;
+  left: var(--mist-x);
+  top: var(--mist-y);
+  width: 120vmax;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  content: '';
+  background: radial-gradient(
+    circle,
+    var(--mist-core) 0%,
+    var(--mist-middle) 28%,
+    var(--mist-edge) 52%,
+    transparent 72%
+  );
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.02);
+  will-change: transform, opacity;
+}
+
+.theme-mist--active::before {
+  animation: mist-expand 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 @keyframes mist-expand {
-  0%   { opacity: 0;   transform: scale(0.05); }
-  25%  { opacity: 1;   transform: scale(1.2); }
-  60%  { opacity: 0.6; transform: scale(2.5); }
-  100% { opacity: 0;   transform: scale(4); }
+  0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.02); }
+  18%  { opacity: 1; }
+  58%  { opacity: 0.72; }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(1); }
 }
-
 /* ─── Page container ─────────────────────────────────────────────────────── */
 
 main {
@@ -247,6 +272,7 @@ footer[aria-label="Site footer"] {
 
 .hero {
   padding-top: 6rem;
+  margin-left: min(0px, calc(175px - 21.875vw));
 }
 
 .hero h1 {
@@ -267,11 +293,11 @@ footer[aria-label="Site footer"] {
 .hero-bg {
   position: absolute;
   top: var(--nav-h);
-  left: 0;
-  width: 100%;
+  left: calc(50% - 50vw);
+  width: 100vw;
   height: 400px;
   background: radial-gradient(
-    ellipse 60% 40% at 20% 50%,
+    ellipse 45% 40% at 8% 50%,
     var(--accent-glow),
     transparent 70%
   );

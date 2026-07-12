@@ -43,7 +43,8 @@ export function Home() {
           ))}
         </h1>
         <p className="hero-sub">
-          I build compilers, renderers, and tools that make the complex feel simple.
+          I build practical web apps, community tools, and games that turn complex
+          ideas into useful experiences.
         </p>
       </section>
     </main>

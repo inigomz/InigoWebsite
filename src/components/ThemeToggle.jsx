@@ -24,6 +24,7 @@ function resolveInitialTheme() {
 export function ThemeToggle() {
   const [theme, setTheme] = useState(resolveInitialTheme);
   const [misting, setMisting] = useState(false);
+  const [mistTarget, setMistTarget] = useState(null);
   const mistRef = useRef(null);
   const btnRef = useRef(null);
   const timerRef = useRef(null);
@@ -49,6 +50,7 @@ export function ThemeToggle() {
       mistRef.current.style.setProperty('--mist-y', `${cy}px`);
     }
 
+    setMistTarget(theme === 'dark' ? 'light' : 'dark');
     setMisting(true);
 
     // Flip the theme halfway through so the new colours emerge from under the mist.
@@ -60,7 +62,7 @@ export function ThemeToggle() {
     timerRef.current = setTimeout(() => {
       setMisting(false);
     }, MIST_DURATION);
-  }, [misting]);
+  }, [misting, theme]);
 
   const isDark = theme === 'dark';
 
@@ -70,7 +72,9 @@ export function ThemeToggle() {
       <div
         ref={mistRef}
         aria-hidden="true"
-        className={`theme-mist${misting ? ' theme-mist--active' : ''}`}
+        className={`theme-mist${misting ? ' theme-mist--active' : ''}${
+          mistTarget ? ` theme-mist--to-${mistTarget}` : ''
+        }`}
       />
 
       {/* Toggle button */}

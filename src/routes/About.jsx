@@ -12,31 +12,32 @@ export function About() {
 
       <section className="about__bio">
         <p>
-          I'm a software engineer who enjoys working close to the metal — writing
-          compilers, renderers, and interactive tools where the gap between intention
-          and result is as thin as possible.
+          I am a software developer in California who enjoys turning ideas into
+          useful and engaging experiences. I like building projects that solve a
+          real problem, support a community, or simply make something more fun.
         </p>
         <p>
-          My background spans systems programming in C++ and Rust, frontend work in
-          TypeScript and React, and the occasional dive into graphics and algorithms
-          just to understand how things actually work.
+          My work includes web applications, Discord and Twitch bots, game projects,
+          and tools powered by artificial intelligence. I have built gear planners
+          for Dungeons and Dragons Online, experimented with data science 
+          parallel programming, and created games with Unity and Godot.
         </p>
         <p>
-          Outside of code I read a lot, think about programming language design, and
-          try to keep my side projects small enough to finish.
+          I am most interested in software that people can interact with and use.
+          Each project is a chance to learn a new technology, explore a different
+          kind of problem, and improve the way I turn an idea into a finished product.
         </p>
       </section>
-
       <section className="about__contact" aria-labelledby="contact-heading">
         <h2 id="contact-heading">Get in touch</h2>
         <p>
           The best way to reach me is on{' '}
           <a
-            href="https://github.com/inigo"
+            href="https://www.linkedin.com/in/inigoz/"
             target="_blank"
             rel="noopener noreferrer"
           >
-            GitHub
+            LinkedIn
           </a>
           .
         </p>
