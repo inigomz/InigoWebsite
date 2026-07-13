@@ -19,7 +19,7 @@ export function About() {
         <p>
           My work includes web applications, Discord and Twitch bots, game projects,
           and tools powered by artificial intelligence. I have built gear planners
-          for Dungeons and Dragons Online, experimented with data science
+          for Dungeons and Dragons Online, experimented with data science,
           parallel programming, and created games with Unity and Godot.
         </p>
         <p>
